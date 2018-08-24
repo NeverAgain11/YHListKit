@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol YHCollectionViewAdapterDelegate <NSObject>
     
-    @optional
+@optional
     
     
     /**
@@ -49,11 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface YHCollectionViewAdapter : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
     
-    @property (weak, nonatomic, nullable) id <YHCollectionViewAdapterDelegate> delegate;              ///< YHCollectionViewAdapter 的 delegate
-    @property (weak, nonatomic, nullable) id <UICollectionViewDelegate> collectionViewDelegate;       ///< UICollectionViewDelegate 方法回调时，会传递给该代理
-    @property (strong, nonatomic, nullable) UICollectionView *collectionView;                         ///< 绑定的 collection view
+@property (weak, nonatomic, nullable) id <YHCollectionViewAdapterDelegate> delegate;              ///< YHCollectionViewAdapter 的 delegate
+@property (weak, nonatomic, nullable) id <UICollectionViewDelegate> collectionViewDelegate;       ///< UICollectionViewDelegate 方法回调时，会传递给该代理
+@property (strong, nonatomic, nullable) UICollectionView *collectionView;                         ///< 绑定的 collection view
     
-    @property (strong, nonatomic, nullable) NSArray <YHCollectionViewSectionModel *> *sectionModels;  ///< 数据源
+@property (strong, nonatomic, nullable) NSArray <YHCollectionViewSectionModel *> *sectionModels;  ///< 数据源
     
     
     /* 便捷读取 view model 的方法 */

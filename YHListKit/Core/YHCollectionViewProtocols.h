@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol YHCollectionViewCell <NSObject>
     
-    @required
-    @property (strong, nonatomic) YHCollectionViewCellModel *cellModel;
+@required
+@property (strong, nonatomic, nullable) YHCollectionViewCellModel *cellModel;
     
-    @optional
+@optional
 + (CGFloat)cellHeightWithModel:(YHCollectionViewCellModel *)model;
 + (CGFloat)cellWidthWithModel:(YHCollectionViewCellModel *)model;
     
@@ -29,11 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
  通用 section header / footer 协议
  */
 @protocol YHCollectionViewSectionHeaderFooter <NSObject>
-    
-    @optional
-    @property (strong, nonatomic) YHCollectionViewSectionModel *sectionModel;
+
+@optional
+@property (strong, nonatomic, nullable) YHCollectionViewSectionModel *sectionModel;
 + (CGFloat)heightWithModel:(YHCollectionViewSectionModel *)model;
 + (CGFloat)widthWithModel:(YHCollectionViewSectionModel *)model;
     
-    @end
+@end
 NS_ASSUME_NONNULL_END
