@@ -8,31 +8,32 @@
 
 #import <Foundation/Foundation.h>
 @class YHCollectionViewCellModel, YHCollectionViewSectionModel;
-
+NS_ASSUME_NONNULL_BEGIN
 /**
  通用的 cell 协议
  */
 @protocol YHCollectionViewCell <NSObject>
-
-@required
-@property (strong, nonatomic) YHCollectionViewCellModel *cellModel;
-
-@optional
+    
+    @required
+    @property (strong, nonatomic) YHCollectionViewCellModel *cellModel;
+    
+    @optional
 + (CGFloat)cellHeightWithModel:(YHCollectionViewCellModel *)model;
 + (CGFloat)cellWidthWithModel:(YHCollectionViewCellModel *)model;
-
-
-@end
+    
+    
+    @end
 
 
 /**
  通用 section header / footer 协议
  */
 @protocol YHCollectionViewSectionHeaderFooter <NSObject>
-
-@optional
-@property (strong, nonatomic) YHCollectionViewSectionModel *sectionModel;
+    
+    @optional
+    @property (strong, nonatomic) YHCollectionViewSectionModel *sectionModel;
 + (CGFloat)heightWithModel:(YHCollectionViewSectionModel *)model;
 + (CGFloat)widthWithModel:(YHCollectionViewSectionModel *)model;
-
-@end
+    
+    @end
+NS_ASSUME_NONNULL_END
