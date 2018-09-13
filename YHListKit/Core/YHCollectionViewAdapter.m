@@ -306,7 +306,10 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
     [cellModel collectionViewDidSelectItem:collectionView];
-    cellModel.didSelectItem(collectionView, indexPath);
+    
+    if (cellModel.didSelectItem) {
+        cellModel.didSelectItem(collectionView, indexPath);
+    }
     
     if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
         [self.collectionViewDelegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
