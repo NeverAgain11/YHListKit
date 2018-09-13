@@ -13,16 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
  通用的 cell 协议
  */
 @protocol YHCollectionViewCell <NSObject>
-    
+
 @required
-@property (strong, nonatomic) YHCollectionViewCellModel *cellModel;
+@property (strong, nonatomic, nullable) YHCollectionViewCellModel *cellModel;
 
 @optional
 + (CGFloat)cellHeightWithModel:(YHCollectionViewCellModel *)model;
 + (CGFloat)cellWidthWithModel:(YHCollectionViewCellModel *)model;
-    
-    
-    @end
+
+@end
 
 
 /**

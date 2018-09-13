@@ -12,20 +12,24 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  通用 cell model
  */
+
+typedef void(^YHSelectBlock)(UICollectionView *collectionView, NSIndexPath *indexPath);
+
 @interface YHCollectionViewCellModel : NSObject
 
 @property (strong, nonatomic, nullable) Class cellClass;   // class 和 nibName 两个属性必须选择设置其中一个
 @property (copy, nonatomic, nullable) NSString *nibName;
-    
+
 @property (assign, nonatomic) CGFloat cellHeight;
 @property (assign, nonatomic) CGFloat cellWidth;  // 可选字段，默认是 container 的宽度
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @property (assign, nonatomic) NSInteger numberOfItemsInSection;
 @property (strong, nonatomic) id dataModel;
-    
+
+@property (nonatomic, copy) YHSelectBlock didSelectItem;
+
 - (void)collectionViewDidSelectItem:(UICollectionView *)collectionView;
-    
-    
+
 @end
 
 NS_ASSUME_NONNULL_END
