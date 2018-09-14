@@ -126,6 +126,10 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
             cell.cellModel = cellModel;
         }
         
+        if (cell.cellModel.didDequeueCell) {
+            cell.cellModel.didDequeueCell(cell, indexPath);
+        }
+        
         if ([self.delegate respondsToSelector:@selector(collectionViewAdapter:didDequeueCell:atIndexPath:)]) {
             [self.delegate collectionViewAdapter:self didDequeueCell:cell atIndexPath:indexPath];
         }

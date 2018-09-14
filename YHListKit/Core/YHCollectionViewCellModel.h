@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 typedef void(^YHSelectBlock)(UICollectionView *collectionView, NSIndexPath *indexPath);
+typedef void(^YHDequeueBlock)(UICollectionViewCell *cell, NSIndexPath *indexPath);
 
 @interface YHCollectionViewCellModel : NSObject
 
@@ -27,6 +28,7 @@ typedef void(^YHSelectBlock)(UICollectionView *collectionView, NSIndexPath *inde
 @property (strong, nonatomic) id dataModel;
 
 @property (nonatomic, copy) YHSelectBlock didSelectItem;
+@property (nonatomic, copy) YHDequeueBlock didDequeueCell;
 
 - (void)collectionViewDidSelectItem:(UICollectionView *)collectionView;
 
