@@ -122,10 +122,6 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         
         UICollectionViewCell <YHCollectionViewCell> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
         
-        if ([cell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
-            cell.cellModel = cellModel;
-        }
-        
         if (cell.cellModel.didDequeueCell) {
             cell.cellModel.didDequeueCell(cell, indexPath);
         }
@@ -327,6 +323,13 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 }
     
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([cell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
+        UICollectionViewCell <YHCollectionViewCell> *yhCell = (UICollectionViewCell <YHCollectionViewCell> *) cell;
+        YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
+        yhCell.cellModel = cellModel;
+    }
+    
     if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:willDisplayCell:forItemAtIndexPath:)]) {
         [self.collectionViewDelegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
     }
