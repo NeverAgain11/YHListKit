@@ -139,7 +139,6 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     // section header & footer
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
-    
     YHCollectionViewSectionModel *model = [self collectionView:collectionView viewModelForSection:indexPath.section];
     Class viewClass = (kind == UICollectionElementKindSectionHeader) ? model.headerClass : model.footerClass;
     NSString *nibName = (kind == UICollectionElementKindSectionHeader) ? model.headerNibName : model.footerNibName;
@@ -158,25 +157,27 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         }
     }
     
-    
-    UICollectionReusableView <YHCollectionViewSectionHeaderFooter> *headerFooter = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-    
-    if (kind == UICollectionElementKindSectionHeader && headerFooter) {
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0") == NO) {
-            [self.sectionHeaderMap setObject:headerFooter forKey:@(indexPath.section)];
+    if (viewClass || nibName) {
+        UICollectionReusableView <YHCollectionViewSectionHeaderFooter> *headerFooter = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+        
+        if (kind == UICollectionElementKindSectionHeader && headerFooter) {
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0") == NO) {
+                [self.sectionHeaderMap setObject:headerFooter forKey:@(indexPath.section)];
+            }
         }
+        
+        if ([headerFooter respondsToSelector:@selector(setSectionModel:)]) {
+            [headerFooter setSectionModel:model];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(collectionViewAdapter:didDequeueSupplementaryView:ofKind:atIndexPath:)]) {
+            [self.delegate collectionViewAdapter:self didDequeueSupplementaryView:headerFooter ofKind:kind atIndexPath:indexPath];
+        }
+        
+        return headerFooter;
     }
     
-    if ([headerFooter respondsToSelector:@selector(setSectionModel:)]) {
-        [headerFooter setSectionModel:model];
-    }
-    
-    
-    if ([self.delegate respondsToSelector:@selector(collectionViewAdapter:didDequeueSupplementaryView:ofKind:atIndexPath:)]) {
-        [self.delegate collectionViewAdapter:self didDequeueSupplementaryView:headerFooter ofKind:kind atIndexPath:indexPath];
-    }
-    
-    return headerFooter ? : [[UICollectionReusableView alloc] init];
+    return [[UICollectionReusableView alloc] init];
 }
     
 #pragma mark - <UICollectionViewDelegate>
