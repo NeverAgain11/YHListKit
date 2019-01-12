@@ -15,6 +15,8 @@
     if (self) {
         _headerHeight = CGFLOAT_MAX;
         _footerHeight = CGFLOAT_MAX;
+        _headerClass = [UICollectionReusableView class];
+        _footerClass = [UICollectionReusableView class];
     }
     return self;
 }
