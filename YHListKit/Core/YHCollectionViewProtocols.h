@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 @property (strong, nonatomic, nullable) YHCollectionViewCellModel *cellModel;
+- (void)willDisplay;
 
 @optional
 + (CGFloat)cellHeightWithModel:(YHCollectionViewCellModel *)model;
