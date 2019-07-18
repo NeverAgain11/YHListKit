@@ -12,8 +12,8 @@ s.source           = {:git => "https://github.com/ShannonChenCHN/YHListKit.git",
 s.requires_arc     = true
 s.screenshot        = 'https://github.com/ShannonChenCHN/YHListKit/raw/master/src/preview.gif'
 
-s.platform         = :ios, '7.0'
-s.source_files     = 'YHListKit/**/*.{h,m}'
+s.platform         = :ios, '9.0'
+s.source_files     = 'YHListKit/**/*'
 
 end
 

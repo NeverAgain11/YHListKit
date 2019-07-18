@@ -183,6 +183,19 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return [[UICollectionReusableView alloc] init];
 }
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(collectionView:canMoveItemAtIndexPath:)]) {
+        return [self.delegate collectionView:collectionView canMoveItemAtIndexPath:indexPath];
+    }
+    return false;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    if ([self.delegate respondsToSelector:@selector(collectionView:moveItemAtIndexPath:toIndexPath:)]) {
+        [self.delegate collectionView:collectionView moveItemAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    }
+}
     
 #pragma mark - <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {

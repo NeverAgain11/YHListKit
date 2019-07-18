@@ -39,8 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
      @param indexPath 被复用的 Supplementary View 的 indexPath
      */
 - (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueSupplementaryView:(UICollectionReusableView *)view ofKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath;
     
-    @end
+@end
 
 
 
