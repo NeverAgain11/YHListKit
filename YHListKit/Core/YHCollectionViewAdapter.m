@@ -333,6 +333,12 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         [self.collectionViewDelegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     }
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:didDeselectItemAtIndexPath:)]) {
+        [self.collectionViewDelegate collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
+    }
+}
     
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:)]) {
