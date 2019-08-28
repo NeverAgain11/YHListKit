@@ -37,7 +37,6 @@
         return CGFLOAT_MAX;
     }
     
-    
     NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:sectionModel.cellModels.count - 1 inSection:sectionModel.section];
     
     UICollectionViewLayoutAttributes *footerAttr = nil;
@@ -58,3 +57,4 @@
 }
 
 @end
+

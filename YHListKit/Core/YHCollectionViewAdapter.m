@@ -20,7 +20,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 }
 
 @interface YHCollectionViewAdapter ()
-    
+
 // https://stackoverflow.com/a/13410537
 @property (strong, nonatomic) NSMutableDictionary <NSNumber *, UICollectionReusableView *> *sectionHeaderMap;
 @property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
@@ -34,21 +34,21 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 @end
 
 @implementation YHCollectionViewAdapter
-    
-    
+
+
 - (void)setCollectionView:(UICollectionView *)collectionView {
     _collectionView = collectionView;
     
     collectionView.delegate = (id <UICollectionViewDelegate>)self.delegateInterceptor;
     collectionView.dataSource = self;
 }
-    
+
 - (void)setCollectionViewDelegate:(id<UICollectionViewDelegate>)collectionViewDelegate {
     _collectionViewDelegate = collectionViewDelegate;
     
     self.delegateInterceptor.receiver = collectionViewDelegate;
 }
-    
+
 #pragma mark - Public
 - (YHCollectionViewSectionModel *)collectionView:(UICollectionView *)collectionView viewModelForSection:(NSInteger)section {
     if (self.sectionModels.count > section) {
@@ -78,7 +78,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         return self.sectionHeaderMap[@(section)];
     }
 }
-    
+
 #pragma mark -  <UICollectionViewDataSource>
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     self.collectionView = collectionView;
@@ -87,15 +87,15 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return self.sectionModels.count;
 }
-    
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (self.sectionModels.count > section) {
         return self.sectionModels[section].cellModels.count;
     }
     return 0;
 }
-    
-    // cell
+
+// cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     
@@ -137,8 +137,8 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return [[UICollectionViewCell alloc] init];
 }
-    
-    // section header & footer
+
+// section header & footer
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
     YHCollectionViewSectionModel *model = [self collectionView:collectionView viewModelForSection:indexPath.section];
@@ -201,7 +201,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     }
     return proposedIndexPath;
 }
-    
+
 #pragma mark - <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -216,9 +216,9 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         [self.collectionViewDelegate collectionView:collectionView willDisplaySupplementaryView:view forElementKind:elementKind atIndexPath:indexPath];
     }
 }
-    
+
 #pragma mark - <UICollectionViewDelegateFlowLayout>
-    // 计算 cell 尺寸
+// 计算 cell 尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
@@ -245,27 +245,27 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return CGSizeMake(cellModel.cellWidth, cellModel.cellHeight);
 }
-    
-    
+
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
     
     return sectionModel.minimumLineSpacing;
 }
-    
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
     
     return sectionModel.minimumInteritemSpacing;
 }
-    
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
     
     return sectionModel.sectionInsets;
 }
-    
-    // 计算 section header 尺寸
+
+// 计算 section header 尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     
     YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
@@ -293,8 +293,8 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return CGSizeMake(sectionModel.headerWidth, sectionModel.headerHeight);
 }
-    
-    // 计算 section footer 尺寸
+
+// 计算 section footer 尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
     
     YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
@@ -322,9 +322,9 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return CGSizeMake(sectionModel.footerWidth, sectionModel.footerHeight);
 }
-    
-    
-    
+
+
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
@@ -344,13 +344,13 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         [self.collectionViewDelegate collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
     }
 }
-    
+
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:)]) {
         [self.collectionViewDelegate collectionView:collectionView didEndDisplayingCell:cell forItemAtIndexPath:indexPath];
     }
 }
-    
+
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([cell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
@@ -362,20 +362,20 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         [self.collectionViewDelegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
     }
 }
-    
+
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0") == NO) {
         [self.sectionHeaderMap removeObjectForKey:@(indexPath.section)];
     }
     
 }
-    
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([self.collectionViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [self.collectionViewDelegate scrollViewDidScroll:scrollView];
     }
 }
-    
+
 #pragma mark - Private
 - (void)p_setupCellCountAndSectionCountForModels {
     [self.sectionModels enumerateObjectsUsingBlock:^(YHCollectionViewSectionModel * sectionModel, NSUInteger section, BOOL * _Nonnull stop) {
@@ -390,7 +390,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     }];
     
 }
-    
+
 #pragma mark - Getter
 - (NSMutableDictionary *)sectionHeaderMap {
     if (_sectionHeaderMap == nil) {
@@ -398,28 +398,28 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     }
     return _sectionHeaderMap;
 }
-    
+
 - (NSMutableSet<Class> *)registeredCellClasses {
     if (_registeredCellClasses == nil) {
         _registeredCellClasses = [[NSMutableSet alloc] init];
     }
     return _registeredCellClasses;
 }
-    
+
 - (NSMutableSet<NSString *> *)registeredCellNibNames {
     if (_registeredCellNibNames == nil) {
         _registeredCellNibNames = [[NSMutableSet alloc] init];
     }
     return _registeredCellNibNames;
 }
-    
+
 - (NSMutableSet<NSString *> *)registeredSupplementaryViewIdentifiers {
     if (_registeredSupplementaryViewIdentifiers == nil) {
         _registeredSupplementaryViewIdentifiers = [[NSMutableSet alloc] init];
     }
     return _registeredSupplementaryViewIdentifiers;
 }
-    
+
 - (NSMutableSet<NSString *> *)registeredSupplementaryViewNibNames {
     if (_registeredSupplementaryViewNibNames == nil) {
         _registeredSupplementaryViewNibNames = [[NSMutableSet alloc] init];
@@ -435,6 +435,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     }
     return _delegateInterceptor;
 }
-    
+
 @end
+
 

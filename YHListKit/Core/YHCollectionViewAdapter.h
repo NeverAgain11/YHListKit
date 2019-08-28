@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  提供给业务方使用的配置接口，在复用 Cell 和 Supplementary View 之后可以根据自己的需要进行配置，比如设置 cell 的 delegate
  */
 @protocol YHCollectionViewAdapterDelegate <NSObject>
-    
+
 @optional
 
 /**
@@ -52,25 +52,26 @@ NS_ASSUME_NONNULL_BEGIN
  包装 UICollectionView 代理方法的适配器
  */
 @interface YHCollectionViewAdapter : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
-    
+
 @property (weak, nonatomic, nullable) id <YHCollectionViewAdapterDelegate> delegate;              ///< YHCollectionViewAdapter 的 delegate
 @property (weak, nonatomic, nullable) id <UICollectionViewDelegate> collectionViewDelegate;       ///< UICollectionViewDelegate 方法回调时，会传递给该代理
 @property (strong, nonatomic, nullable) UICollectionView *collectionView;                         ///< 绑定的 collection view
-    
+
 @property (strong, nonatomic, nullable) NSArray <YHCollectionViewSectionModel *> *sectionModels;  ///< 数据源
 
 /* 便捷读取 view model 的方法 */
-    
+
 /// 获取某个 section 对应的 view model
 - (nullable YHCollectionViewSectionModel *)collectionView:(UICollectionView *)collectionView viewModelForSection:(NSInteger)section;
-    
+
 /// 获取某个 indexPath 对应的 cell model
 - (nullable YHCollectionViewCellModel *)collectionView:(UICollectionView *)collectionView cellModelForItemAtIndexPath:(NSIndexPath *)indexPath;
-    
+
 /// 获取 section header 的方法，针对 iOS 9 以下的适配
 /// https://stackoverflow.com/a/13410537
 - (nullable UICollectionReusableView *)sectionHeaderForSection:(NSInteger)section;
-    
+
 @end
 
 NS_ASSUME_NONNULL_END
+

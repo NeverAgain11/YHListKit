@@ -20,3 +20,4 @@
 + (BOOL)yh_systemVersionGreaterThanOrEqualTo:(NSString *)requiredVersion;
 
 @end
+

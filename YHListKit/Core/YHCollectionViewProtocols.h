@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) YHCollectionViewSectionModel *sectionModel;
 + (CGFloat)heightWithModel:(YHCollectionViewSectionModel *)model;
 + (CGFloat)widthWithModel:(YHCollectionViewSectionModel *)model;
-    
+
 @end
 NS_ASSUME_NONNULL_END
+
