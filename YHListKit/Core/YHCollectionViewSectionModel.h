@@ -17,9 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
     
 @property (strong, nonatomic, nullable) Class headerClass;     // class 和 nibName 两个属性必须设置一个
 @property (copy, nonatomic, nullable) NSString *headerNibName;
-@property (copy, nonatomic, nullable) NSString *headerTitle;
-@property (assign, nonatomic) CGFloat headerTitleOriginY; // 标题原点 Y
-@property (copy, nonatomic, nullable) NSString *headerSubtitle;
 @property (assign, nonatomic) CGFloat headerHeight;
 @property (assign, nonatomic) CGFloat headerWidth;
 @property (strong, nonatomic, nullable) id headerModel;  // 可选字段
@@ -30,7 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
     
 @property (strong, nonatomic) NSArray <YHCollectionViewCellModel *> *cellModels;
     
-@property (copy, nonatomic, nullable) NSString *footerTitle;
 @property (assign, nonatomic) CGFloat footerWidth;
 @property (assign, nonatomic) CGFloat footerHeight;
 @property (strong, nonatomic, nullable) Class footerClass;      // class 和 nibName 两个属性必须设置一个
