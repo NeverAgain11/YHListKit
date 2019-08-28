@@ -14,8 +14,6 @@
 #import "UIDevice+YHouse.h"
 #import "MessageInterceptor.h"
 
-
-
 /// Generate a string representation of a reusable view class when registering with a UICollectionView.
 NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullable nibName, NSString * _Nullable kind) {
     return [NSString stringWithFormat:@"%@%@%@", kind ?: @"", nibName ?: @"", NSStringFromClass(viewClass)];
@@ -23,17 +21,17 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 
 @interface YHCollectionViewAdapter ()
     
-    // https://stackoverflow.com/a/13410537
-    @property (strong, nonatomic) NSMutableDictionary <NSNumber *, UICollectionReusableView *> *sectionHeaderMap;
-    @property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
-    @property (nonatomic, strong) NSMutableSet<NSString *> *registeredCellNibNames;
-    @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
-    @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
-    
-    
-    @property (strong, nonatomic) MessageInterceptor *delegateInterceptor;
-    
-    @end
+// https://stackoverflow.com/a/13410537
+@property (strong, nonatomic) NSMutableDictionary <NSNumber *, UICollectionReusableView *> *sectionHeaderMap;
+@property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredCellNibNames;
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
+
+
+@property (strong, nonatomic) MessageInterceptor *delegateInterceptor;
+
+@end
 
 @implementation YHCollectionViewAdapter
     
@@ -59,7 +57,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return nil;
 }
-    
+
 - (YHCollectionViewCellModel *)collectionView:(UICollectionView *)collectionView cellModelForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.sectionModels.count > indexPath.section &&
@@ -70,8 +68,8 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     return nil;
 }
-    
-    // https://stackoverflow.com/a/13410537
+
+// https://stackoverflow.com/a/13410537
 - (UICollectionReusableView *)sectionHeaderForSection:(NSInteger)section {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
@@ -428,7 +426,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     }
     return _registeredSupplementaryViewNibNames;
 }
-    
+
 - (MessageInterceptor *)delegateInterceptor {
     if (_delegateInterceptor == nil) {
         _delegateInterceptor = [[MessageInterceptor alloc] init];
@@ -438,7 +436,5 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     return _delegateInterceptor;
 }
     
-    
-    
-    @end
+@end
 
