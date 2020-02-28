@@ -29,6 +29,7 @@ typedef void(^YHDequeueBlock)(UICollectionViewCell *cell, NSIndexPath *indexPath
 
 @property (nonatomic, copy) YHSelectBlock didSelectItem;
 @property (nonatomic, copy) YHDequeueBlock didDequeueCell;
+@property (nonatomic, copy) YHDequeueBlock willDisplayCell;
 
 - (void)collectionViewDidSelectItem:(UICollectionView *)collectionView;
 

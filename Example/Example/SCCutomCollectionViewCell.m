@@ -40,6 +40,10 @@
     return self;
 }
 
+- (void)willDisplay {
+    self.titleLabel.text = _cellModel.dataModel;
+}
+
 - (void)setCellModel:(YHCollectionViewCellModel *)cellModel {
     _cellModel = cellModel;
     self.titleLabel.text = cellModel.dataModel;

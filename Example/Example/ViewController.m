@@ -102,16 +102,20 @@
 #pragma mark - <UICollectionViewDelegate>
     
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%s", __FUNCTION__);
+//    NSLog(@"%s", __FUNCTION__);
 }
     
 #pragma mark - <YHCollectionViewAdapterDelegate>
 - (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cell: %@, indexPath: %@", cell, indexPath);
+//    NSLog(@"cell: %@, indexPath: %@", cell, indexPath);
 }
 
 - (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueSupplementaryView:(UICollectionReusableView *)view ofKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"view: %@, kind: %@, indexPath: %@", view, kind, indexPath);
+//    NSLog(@"view: %@, kind: %@, indexPath: %@", view, kind, indexPath);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"didEndDisplayingCell: %@, indexPath: %@", cell, indexPath);
 }
 
 @end

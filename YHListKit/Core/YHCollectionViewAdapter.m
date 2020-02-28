@@ -138,6 +138,22 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     return [[UICollectionViewCell alloc] init];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([cell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
+        UICollectionViewCell <YHCollectionViewCell> *yhCell = (UICollectionViewCell <YHCollectionViewCell> *) cell;
+        [yhCell willDisplay];
+        
+        if (yhCell.cellModel.willDisplayCell) {
+            yhCell.cellModel.willDisplayCell(cell, indexPath);
+        }
+    }
+    
+    if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:willDisplayCell:forItemAtIndexPath:)]) {
+        [self.collectionViewDelegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
+    }
+}
+
 // section header & footer
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -319,11 +335,8 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         }
     }
     
-    
     return CGSizeMake(sectionModel.footerWidth, sectionModel.footerHeight);
 }
-
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -348,18 +361,6 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:)]) {
         [self.collectionViewDelegate collectionView:collectionView didEndDisplayingCell:cell forItemAtIndexPath:indexPath];
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if ([cell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
-        UICollectionViewCell <YHCollectionViewCell> *yhCell = (UICollectionViewCell <YHCollectionViewCell> *) cell;
-        [yhCell willDisplay];
-    }
-    
-    if ([self.collectionViewDelegate respondsToSelector:@selector(collectionView:willDisplayCell:forItemAtIndexPath:)]) {
-        [self.collectionViewDelegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
     }
 }
 
