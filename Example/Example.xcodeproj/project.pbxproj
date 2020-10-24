@@ -24,6 +24,11 @@
 		5839FBD820036BC20083627A /* UIDevice+YHouse.m in Sources */ = {isa = PBXBuildFile; fileRef = 5839FBCF20036BC20083627A /* UIDevice+YHouse.m */; };
 		5839FBD920036BC20083627A /* YHCollectionViewAdapter+LayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5839FBD220036BC20083627A /* YHCollectionViewAdapter+LayoutAttributes.m */; };
 		B75AD42ED93390875D17FCD4 /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C42A255CB27DD61B67667F5D /* libPods-Example.a */; };
+		D4C0A02D254403B400902717 /* UICollectionView+XYIndexPathSizeCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A024254403B400902717 /* UICollectionView+XYIndexPathSizeCache.m */; };
+		D4C0A02E254403B400902717 /* UICollectionView+XYSectionSizeCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A026254403B400902717 /* UICollectionView+XYSectionSizeCache.m */; };
+		D4C0A02F254403B400902717 /* UICollectionView+XYTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A028254403B400902717 /* UICollectionView+XYTemplateLayoutCellDebug.m */; };
+		D4C0A030254403B400902717 /* UICollectionView+XYTemplateReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A02A254403B400902717 /* UICollectionView+XYTemplateReusableView.m */; };
+		D4C0A031254403B400902717 /* UICollectionView+XYTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A02C254403B400902717 /* UICollectionView+XYTemplateLayoutCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +66,16 @@
 		5839FBD220036BC20083627A /* YHCollectionViewAdapter+LayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YHCollectionViewAdapter+LayoutAttributes.m"; sourceTree = "<group>"; };
 		B60FE77C27CEEDEB2F14EACF /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C42A255CB27DD61B67667F5D /* libPods-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4C0A023254403B400902717 /* UICollectionView+XYTemplateReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XYTemplateReusableView.h"; sourceTree = "<group>"; };
+		D4C0A024254403B400902717 /* UICollectionView+XYIndexPathSizeCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+XYIndexPathSizeCache.m"; sourceTree = "<group>"; };
+		D4C0A025254403B400902717 /* UICollectionView+XYTemplateLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XYTemplateLayoutCellDebug.h"; sourceTree = "<group>"; };
+		D4C0A026254403B400902717 /* UICollectionView+XYSectionSizeCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+XYSectionSizeCache.m"; sourceTree = "<group>"; };
+		D4C0A027254403B400902717 /* UICollectionView+XYTemplateLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XYTemplateLayoutCell.h"; sourceTree = "<group>"; };
+		D4C0A028254403B400902717 /* UICollectionView+XYTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+XYTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
+		D4C0A029254403B400902717 /* UICollectionView+XYIndexPathSizeCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XYIndexPathSizeCache.h"; sourceTree = "<group>"; };
+		D4C0A02A254403B400902717 /* UICollectionView+XYTemplateReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+XYTemplateReusableView.m"; sourceTree = "<group>"; };
+		D4C0A02B254403B400902717 /* UICollectionView+XYSectionSizeCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XYSectionSizeCache.h"; sourceTree = "<group>"; };
+		D4C0A02C254403B400902717 /* UICollectionView+XYTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+XYTemplateLayoutCell.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +129,7 @@
 		5839FBC020036BC20083627A /* YHListKit */ = {
 			isa = PBXGroup;
 			children = (
+				D4C0A022254403B400902717 /* XYTemplateLayoutCell */,
 				5839FBC120036BC20083627A /* Core */,
 				5839FBCB20036BC20083627A /* Helper */,
 				5839FBD020036BC20083627A /* Other */,
@@ -186,6 +202,23 @@
 				C42A255CB27DD61B67667F5D /* libPods-Example.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4C0A022254403B400902717 /* XYTemplateLayoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				D4C0A029254403B400902717 /* UICollectionView+XYIndexPathSizeCache.h */,
+				D4C0A024254403B400902717 /* UICollectionView+XYIndexPathSizeCache.m */,
+				D4C0A02B254403B400902717 /* UICollectionView+XYSectionSizeCache.h */,
+				D4C0A026254403B400902717 /* UICollectionView+XYSectionSizeCache.m */,
+				D4C0A027254403B400902717 /* UICollectionView+XYTemplateLayoutCell.h */,
+				D4C0A02C254403B400902717 /* UICollectionView+XYTemplateLayoutCell.m */,
+				D4C0A025254403B400902717 /* UICollectionView+XYTemplateLayoutCellDebug.h */,
+				D4C0A028254403B400902717 /* UICollectionView+XYTemplateLayoutCellDebug.m */,
+				D4C0A023254403B400902717 /* UICollectionView+XYTemplateReusableView.h */,
+				D4C0A02A254403B400902717 /* UICollectionView+XYTemplateReusableView.m */,
+			);
+			path = XYTemplateLayoutCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C0A02E254403B400902717 /* UICollectionView+XYSectionSizeCache.m in Sources */,
 				5839FB8C200363990083627A /* ViewController.m in Sources */,
 				5839FBD520036BC20083627A /* YHCollectionViewController.m in Sources */,
 				5839FBD820036BC20083627A /* UIDevice+YHouse.m in Sources */,
@@ -309,9 +343,13 @@
 				5839FB89200363990083627A /* AppDelegate.m in Sources */,
 				5839FBD320036BC20083627A /* YHCollectionViewAdapter.m in Sources */,
 				5839FBBA200368EF0083627A /* SCCollectionSectionFooterView.m in Sources */,
+				D4C0A02F254403B400902717 /* UICollectionView+XYTemplateLayoutCellDebug.m in Sources */,
 				5839FBBB200368EF0083627A /* SCCollectionSectionHeaderView.m in Sources */,
+				D4C0A030254403B400902717 /* UICollectionView+XYTemplateReusableView.m in Sources */,
+				D4C0A02D254403B400902717 /* UICollectionView+XYIndexPathSizeCache.m in Sources */,
 				5839FBBC200368EF0083627A /* SCCutomCollectionViewCell.m in Sources */,
 				5839FBD420036BC20083627A /* YHCollectionViewCellModel.m in Sources */,
+				D4C0A031254403B400902717 /* UICollectionView+XYTemplateLayoutCell.m in Sources */,
 				5839FBD620036BC20083627A /* YHCollectionViewSectionModel.m in Sources */,
 				5839FBD920036BC20083627A /* YHCollectionViewAdapter+LayoutAttributes.m in Sources */,
 			);

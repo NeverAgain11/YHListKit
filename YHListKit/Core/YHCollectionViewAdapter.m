@@ -14,6 +14,9 @@
 #import "UIDevice+YHouse.h"
 #import "MessageInterceptor.h"
 
+#import "UICollectionView+XYTemplateLayoutCell.h"
+#import "UICollectionView+XYTemplateReusableView.h"
+
 /// Generate a string representation of a reusable view class when registering with a UICollectionView.
 NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullable nibName, NSString * _Nullable kind) {
     return [NSString stringWithFormat:@"%@%@%@", kind ?: @"", nibName ?: @"", NSStringFromClass(viewClass)];
