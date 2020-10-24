@@ -25,7 +25,10 @@ typedef NS_ENUM(NSUInteger, XYCellType) {
     }
     UICollectionViewCell *cell = tempCellDict[identifier];
     if (!cell) {
-        cell = [[[UINib nibWithNibName:identifier bundle:[NSBundle mainBundle]] instantiateWithOwner:self options:nil] firstObject];
+        Class cellClass = NSClassFromString(identifier);
+        cell = [[cellClass alloc] init];
+//        cell = [self dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:[NSIndexPath indexPathForItem:1000 inSection:1000]];
+//        cell = [[[UINib nibWithNibName:identifier bundle:[NSBundle mainBundle]] instantiateWithOwner:self options:nil] firstObject];
         NSAssert(cell != nil, @"Cell must be registered to collection view for identifier - %@", identifier);
         [tempCellDict setObject:cell forKey:identifier];
         objc_setAssociatedObject(self, _cmd, tempCellDict, OBJC_ASSOCIATION_COPY_NONATOMIC);
@@ -40,27 +43,30 @@ typedef NS_ENUM(NSUInteger, XYCellType) {
     //获取cell
     UICollectionViewCell *cell = [self getTempCellForIndentifier:identifier];
     [cell prepareForReuse];
+    
     if (config) {
         config(cell);
     }
     
     CGSize fittingSize = CGSizeZero;
+    
     if (type == XYCellTypeDynamicSize) {
-        fittingSize = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        fittingSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityDefaultLow];
     }else{        
         //自动约束获取高度
-        NSLayoutConstraint *tempWidthConstraint =
-        [NSLayoutConstraint constraintWithItem:cell.contentView
-                                     attribute:type == XYCellTypeFixedWidth?NSLayoutAttributeWidth:NSLayoutAttributeHeight
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:nil
-                                     attribute:NSLayoutAttributeNotAnAttribute
-                                    multiplier:1.0
-                                      constant:sizeValue];
-        [cell.contentView addConstraint:tempWidthConstraint];
+//        NSLayoutConstraint *tempWidthConstraint =
+//        [NSLayoutConstraint constraintWithItem:cell.contentView
+//                                     attribute:type == XYCellTypeFixedWidth?NSLayoutAttributeWidth:NSLayoutAttributeHeight
+//                                     relatedBy:NSLayoutRelationEqual
+//                                        toItem:nil
+//                                     attribute:NSLayoutAttributeNotAnAttribute
+//                                    multiplier:1.0
+//                                      constant:sizeValue];
+//        [cell.contentView addConstraint:tempWidthConstraint];
         // Auto layout engine does its math
-        fittingSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        [cell.contentView removeConstraint:tempWidthConstraint];
+//        fittingSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        fittingSize = [cell sizeThatFits:CGSizeMake(sizeValue, CGFLOAT_MAX)];
+//        [cell.contentView removeConstraint:tempWidthConstraint];
     }
     return fittingSize;
 }

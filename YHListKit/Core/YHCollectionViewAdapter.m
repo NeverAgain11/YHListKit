@@ -105,6 +105,27 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     return  identifier;
 }
 
+- (void)registerClass: (YHCollectionViewCellModel *)cellModel collectionView:(UICollectionView *)collectionView {
+    
+    Class cellClass = cellModel.cellClass;
+    NSString *nibName = cellModel.nibName;
+    
+    NSString *identifier = [self cellIdentifier:cellModel];
+    
+    if (nibName) {
+        if (![self.registeredCellNibNames containsObject:nibName]) {
+            [collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:identifier];
+            [self.registeredCellNibNames addObject:nibName];
+        }
+    } else {
+        if (![self.registeredCellClasses containsObject:cellClass]) {
+            [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
+            [self.registeredCellClasses addObject:cellClass];
+        }
+    }
+    
+}
+
 // cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -114,19 +135,8 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     NSString *nibName = cellModel.nibName;
     
     if (cellClass || nibName) {
-        
+        [self registerClass:cellModel collectionView:collectionView];
         NSString *identifier = [self cellIdentifier:cellModel];
-        if (nibName) {
-            if (![self.registeredCellNibNames containsObject:nibName]) {
-                [collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:identifier];
-                [self.registeredCellNibNames addObject:nibName];
-            }
-        } else {
-            if (![self.registeredCellClasses containsObject:cellClass]) {
-                [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
-                [self.registeredCellClasses addObject:cellClass];
-            }
-        }
         
         UICollectionViewCell <YHCollectionViewCell> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
         
@@ -152,7 +162,6 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     if ([cell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
         UICollectionViewCell <YHCollectionViewCell> *yhCell = (UICollectionViewCell <YHCollectionViewCell> *) cell;
-        [yhCell willDisplay];
         
         if (yhCell.cellModel.willDisplayCell) {
             yhCell.cellModel.willDisplayCell(cell, indexPath);
@@ -250,13 +259,15 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
     Class cellClass = cellModel.cellClass;
     
-    BOOL cellHeightNotdefind = false;
+    [self registerClass:cellModel collectionView:collectionView];
+    
+//    BOOL cellHeightNotdefind = false;
     if (cellModel.cellHeight == CGFLOAT_MAX) { // 高度没有缓存
         
         if ([cellClass respondsToSelector:@selector(cellHeightWithModel:)]) {
             cellModel.cellHeight = [cellClass cellHeightWithModel:cellModel];
         } else {
-            cellHeightNotdefind = true;
+//            cellHeightNotdefind = true;
             cellModel.cellHeight = 0.0;
         }
     }
@@ -270,16 +281,16 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         }
     }
     
-    if (cellHeightNotdefind) {
-        CGSize finalSize = [collectionView xy_getCellSizeForIdentifier:[self cellIdentifier:cellModel] config:^(UICollectionViewCell *cell) {
-            UICollectionViewCell <YHCollectionViewCell> *yhCell = (UICollectionViewCell <YHCollectionViewCell> *) cell;
-            if ([yhCell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
-                yhCell.cellModel = cellModel;
-            }
-        }];
-        cellModel.cellHeight = finalSize.height;
+//    if (cellHeightNotdefind) {
+//        CGSize finalSize = [collectionView xy_getCellSizeForIdentifier:NSStringFromClass(cellClass) width:cellModel.cellWidth config:^(UICollectionViewCell *cell) {
+//            UICollectionViewCell <YHCollectionViewCell> *yhCell = (UICollectionViewCell <YHCollectionViewCell> *) cell;
+//            if ([yhCell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
+//                yhCell.cellModel = cellModel;
+//            }
+//        }];
+//        cellModel.cellHeight = finalSize.height;
 //        cellModel.cellWidth = finalSize.width;
-    }
+//    }
     
     return CGSizeMake(cellModel.cellWidth, cellModel.cellHeight);
 }
