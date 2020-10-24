@@ -98,17 +98,24 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     return 0;
 }
 
+- (NSString *)cellIdentifier: (YHCollectionViewCellModel *)cellModel {
+    Class cellClass = cellModel.cellClass;
+    NSString *nibName = cellModel.nibName;
+    NSString *identifier = YHReusableViewIdentifier(cellClass, nibName, nil);
+    return  identifier;
+}
+
 // cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
+    
     Class cellClass = cellModel.cellClass;
     NSString *nibName = cellModel.nibName;
     
     if (cellClass || nibName) {
         
-        NSString *identifier = YHReusableViewIdentifier(cellClass, nibName, nil);
+        NSString *identifier = [self cellIdentifier:cellModel];
         if (nibName) {
             if (![self.registeredCellNibNames containsObject:nibName]) {
                 [collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:identifier];
@@ -243,14 +250,15 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
     Class cellClass = cellModel.cellClass;
     
+    BOOL cellHeightNotdefind = false;
     if (cellModel.cellHeight == CGFLOAT_MAX) { // 高度没有缓存
         
         if ([cellClass respondsToSelector:@selector(cellHeightWithModel:)]) {
             cellModel.cellHeight = [cellClass cellHeightWithModel:cellModel];
         } else {
+            cellHeightNotdefind = true;
             cellModel.cellHeight = 0.0;
         }
-        
     }
     
     if (cellModel.cellWidth == CGFLOAT_MAX) { // 宽度没有缓存
@@ -260,6 +268,17 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         } else {
             cellModel.cellWidth = collectionView.bounds.size.width; // 默认跟 collection view  一样宽
         }
+    }
+    
+    if (cellHeightNotdefind) {
+        CGSize finalSize = [collectionView xy_getCellSizeForIdentifier:[self cellIdentifier:cellModel] config:^(UICollectionViewCell *cell) {
+            UICollectionViewCell <YHCollectionViewCell> *yhCell = (UICollectionViewCell <YHCollectionViewCell> *) cell;
+            if ([yhCell conformsToProtocol:@protocol(YHCollectionViewCell)]) {
+                yhCell.cellModel = cellModel;
+            }
+        }];
+        cellModel.cellHeight = finalSize.height;
+//        cellModel.cellWidth = finalSize.width;
     }
     
     return CGSizeMake(cellModel.cellWidth, cellModel.cellHeight);
@@ -441,5 +460,3 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 }
 
 @end
-
-
