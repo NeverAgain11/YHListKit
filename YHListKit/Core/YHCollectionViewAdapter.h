@@ -71,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// https://stackoverflow.com/a/13410537
 - (nullable UICollectionReusableView *)sectionHeaderForSection:(NSInteger)section;
 
+- (nullable UICollectionViewCell *)cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 NS_ASSUME_NONNULL_END

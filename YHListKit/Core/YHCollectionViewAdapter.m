@@ -126,6 +126,24 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
 }
 
+- (UICollectionViewCell *)cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    YHCollectionViewCellModel *cellModel = [self collectionView:_collectionView cellModelForItemAtIndexPath:indexPath];
+    
+    Class cellClass = cellModel.cellClass;
+    NSString *nibName = cellModel.nibName;
+    
+    if (cellClass || nibName) {
+        [self registerClass:cellModel collectionView:_collectionView];
+        NSString *identifier = [self cellIdentifier:cellModel];
+        
+        UICollectionViewCell <YHCollectionViewCell> *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        
+        return cell;
+    }
+    return nil;
+}
+
 // cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
